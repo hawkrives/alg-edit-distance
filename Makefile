@@ -16,8 +16,8 @@ test-half: edit-halved-distance.out
 	./$< polynomial exponential
 
 test-subsequence: subsequence.out
-	./$< anagram agnar
-	./$< polynomial exponential
+	@# ./$< anagram agnar
+	@# ./$< polynomial exponential
 	./$< hieroglyphology michaelangelo
 
 %.out: %.cpp

@@ -14,6 +14,17 @@ int diff(char a, char b) {
 	return (a == b) ? 0 : 1;
 }
 
+template<typename T>
+std::ostream& operator<<(std::ostream& s, const std::vector<T>& v) {
+	s.put('[');
+	char comma[3] = {'\0', ' ', '\0'};
+	for (const auto& e : v) {
+		s << comma << e;
+		comma[0] = ',';
+	}
+	return s << ']';
+}
+
 int edit_distance(string one, string two) {
 	matrix E;
 	int m = one.size();
