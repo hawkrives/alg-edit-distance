@@ -91,8 +91,9 @@ void trace_back(const matrix mat, int col, int row, const string one, const stri
 	int left = mat.at(col - 1 < 0 ? 0 : col - 1).at(row);
 	int above = mat.at(col).at(row - 1 < 0 ? 0 : row - 1);
 
-	if (one.at(row) == two.at(col)) {
-		path.push_back(one.at(row));
+	cout << col << " " << row << " " << one.size() << " " << two.size() << endl;
+	if (one.at(col - 1 < 0 ? 0 : col - 1) == two.at(row - 1 < 0 ? 0 : row - 1)) {
+		path.push_back(one.at(col-1));
 		trace_back(mat, col - 1, row - 1, one, two, path);
 	}
 	else if (left < above) {
@@ -117,9 +118,13 @@ int main(int argc, char const *argv[]) {
 	for (auto row : mat)
 		cout << '\t' << row << endl;
 	cout << ']' << endl;
-	trace_back(mat, mat.size() - 2, mat.back().size() - 2, one, two, path);
-	cout << "here" << endl;
-	cout << longestDistance << ": " << path << endl;
+	trace_back(mat, mat.size() - 1, mat.back().size() - 1, one, two, path);
+	cout << longestDistance << ": ";
+	cout << path.size() << endl;
+	for(int i=path.size()-1; i >= 0; i--){
+		cout << path[i];
+	}
+	cout << endl;
 
 	return 0;
 }
