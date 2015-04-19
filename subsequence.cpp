@@ -3,6 +3,8 @@ using std::cout;
 using std::cerr;
 using std::endl;
 using std::string;
+#include <iterator>
+using std::ostreambuf_iterator;
 #include <vector>
 using std::vector;
 #include <algorithm>
@@ -91,7 +93,7 @@ void trace_back(const matrix mat, int col, int row, const string one, const stri
 	int left = mat.at(col - 1 < 0 ? 0 : col - 1).at(row);
 	int above = mat.at(col).at(row - 1 < 0 ? 0 : row - 1);
 
-	cout << col << " " << row << " " << one.size() << " " << two.size() << endl;
+	// cout << col << " " << row << " " << one.size() << " " << two.size() << endl;
 	if (one.at(col - 1 < 0 ? 0 : col - 1) == two.at(row - 1 < 0 ? 0 : row - 1)) {
 		path.push_back(one.at(col-1));
 		trace_back(mat, col - 1, row - 1, one, two, path);
@@ -114,16 +116,14 @@ int main(int argc, char const *argv[]) {
 	matrix mat = edit_distance(one, two);
 	int longestDistance = mat.back().back();
 	vector<char> path;
-	cout << '[' << endl;
-	for (auto row : mat)
-		cout << '\t' << row << endl;
-	cout << ']' << endl;
 	trace_back(mat, mat.size() - 1, mat.back().size() - 1, one, two, path);
-	cout << longestDistance << ": ";
-	cout << path.size() << endl;
-	for(int i=path.size()-1; i >= 0; i--){
-		cout << path[i];
-	}
+	cout << "longest distance: " << longestDistance << endl;
+
+	// Reverse the string, so that it's in the right order,
+	reverse(path.begin(), path.end());
+	// and copy the chars onto the ostream, seperated by nothing.
+	copy(path.begin(), path.end(), ostreambuf_iterator<char>(cout));
+	// (and print a newline.)
 	cout << endl;
 
 	return 0;
