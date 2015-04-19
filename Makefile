@@ -1,7 +1,5 @@
 CXX := g++
-CC := $(CXX)
 CXXFLAGS := -g -Wall --std=c++11
-CFLAGS := $(CXXFLAGS)
 
 all: test-all
 
